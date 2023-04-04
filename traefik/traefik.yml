@@ -1,0 +1,27 @@
+version: '3.0'
+
+services:
+  traefik:
+    image: traefik 
+    networks:
+      - infra
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /root/tools/traefik/dynamic:/etc/traefik/dynamic
+      - /root/tools/traefik/conf/traefik.yml:/traefik.yml:ro
+    ports:
+      - 80:80
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
+networks:
+  infra:
+    external: true

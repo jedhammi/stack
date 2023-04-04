@@ -1,0 +1,42 @@
+log:
+  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+  level: ERROR 
+  filePath: "/log/traefik/traefik.log"
+api:
+  dashboard: true
+  insecure: true
+metrics:
+  prometheus:
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
+
+entryPoints:
+  web:
+    address: ":80"
+#    http:
+#      redirections:
+#        entryPoint:
+#          to: websecure
+#          scheme: https
+#          permanent: true
+#  websecure:
+#    address: ":443"
+#    http:
+#      middlewares:
+#        - default-headers@file
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    swarmMode: true
+    network: infra
+    watch: true
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+    debugLogGeneratedTemplate: true
+serversTransport:
+  maxIdleConnsPerHost: 10000

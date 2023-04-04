@@ -1,0 +1,19 @@
+version: "3.0"
+
+services:
+  nexus:
+    image: sonatype/nexus
+    volumes:
+      - "nexus-data:/nexus-data"
+    networks:
+      - infra
+    ports:
+      - "8081:8081"
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+networks:
+  infra:
+    external: true
+volumes:
+  nexus-data:

@@ -1,0 +1,12 @@
+http:
+  middlewares:
+    default-headers:
+      headers:
+        frameDeny: false
+        sslRedirect: false
+        browserXssFilter: false
+        contentTypeNosniff: false
+        forceSTSHeader: false
+        stsIncludeSubdomains: false
+        stsPreload: false
+    
