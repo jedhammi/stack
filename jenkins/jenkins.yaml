@@ -3,7 +3,6 @@ version: '3.0'
 services:
   jenkins:
     image: jenkins/jenkins:lts
-    privileged: true
     user: root
     ports:
       - 8080:8080
