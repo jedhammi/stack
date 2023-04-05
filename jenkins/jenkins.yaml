@@ -16,4 +16,4 @@ networks:
   infra:
     external: true
 volumes:
-  nexus-data:
+  jenkins:
