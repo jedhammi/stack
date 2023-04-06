@@ -2,6 +2,8 @@ version: "3.0"
 services:
   sonarqube:
     image: sonarqube
+    ports:
+      - "9090:9000"
     networks:
       - infra
     environment:
