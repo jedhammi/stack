@@ -11,7 +11,7 @@ services:
       - "8081:8081"
     deploy:
       placement:
-        constraints: [node.role != manager]
+        constraints: [node.role == manager]
 networks:
   infra:
     external: true
