@@ -1,0 +1,39 @@
+version: "3.0"
+services:
+  sonarqube:
+    image: sonarqube
+    networks:
+      - infra
+    environment:
+      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+   deploy:
+      placement:
+        constraints: [node.role != manager] 
+#Sonar DB
+  db:
+    image: postgres
+    networks:
+      - infra
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+networks:
+  infra:
+    external: true
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  postgresql:
+  postgresql_data:
